@@ -18,6 +18,10 @@ using Content.Shared.Verbs;
 using Content.Shared.Wires;
 using Content.Server.Body.Systems;
 using Content.Shared.Tools.Systems;
+using Content.Shared.Hands.Components;
+using Content.Shared.Hands.EntitySystems;
+using Content.Shared.NPC.Components;
+using Content.Shared.NPC.Systems;
 using Robust.Server.Containers;
 using Robust.Server.GameObjects;
 using Robust.Shared.Containers;
@@ -29,6 +33,7 @@ namespace Content.Server.Mech.Systems;
 /// <inheritdoc/>
 public sealed partial class MechSystem : SharedMechSystem
 {
+    [Dependency] private readonly NpcFactionSystem _factionSystem = default!;
     [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
     [Dependency] private readonly AtmosphereSystem _atmosphere = default!;
     [Dependency] private readonly BatterySystem _battery = default!;
@@ -39,6 +44,7 @@ public sealed partial class MechSystem : SharedMechSystem
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
     [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
     [Dependency] private readonly SharedToolSystem _toolSystem = default!;
+    [Dependency] private readonly SharedHandsSystem _hands = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -235,7 +241,21 @@ public sealed partial class MechSystem : SharedMechSystem
             return;
         }
 
+        // Dropa os itens que estiverem na mão ao entra
+        TryComp<HandsComponent>(args.Args.User, out var Userhands);
+
+        if (Userhands == null)
+            return;
+
+        var hands = _hands.EnumerateHands(args.Args.User, Userhands);
+        foreach (var hand in hands)
+        {
+            _hands.DoDrop(args.Args.User, hand, true, Userhands);
+        }
+
         TryInsert(uid, args.Args.User, component);
+        // transfere a facção do player para o mech
+        _factionSystem.TransferFaction(args.Args.User, uid);
         _actionBlocker.UpdateCanMove(uid);
 
         args.Handled = true;
@@ -246,6 +266,8 @@ public sealed partial class MechSystem : SharedMechSystem
         if (args.Cancelled || args.Handled)
             return;
 
+        // Remove o componente de facção ao sair do mech
+        RemComp<NpcFactionMemberComponent>(component.Owner);
         TryEject(uid, component);
 
         args.Handled = true;
@@ -420,7 +442,7 @@ public sealed partial class MechSystem : SharedMechSystem
             return;
         }
 
-        args.Gas =  _atmosphere.GetContainingMixture(component.Mech, excite: args.Excite);
+        args.Gas = _atmosphere.GetContainingMixture(component.Mech, excite: args.Excite);
         args.Handled = true;
     }
 

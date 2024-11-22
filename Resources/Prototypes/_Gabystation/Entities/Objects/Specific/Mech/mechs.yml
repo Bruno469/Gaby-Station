@@ -1,0 +1,220 @@
+# Mauler
+
+- type: entity
+  id: MechMauler
+  parent: BaseMech
+  name: Mauler Mech
+  description: Versatile and high armored, the Mauler is useful for almost any heavy "work" scenario.
+  components:
+  - type: Magboots
+  - type: Sprite
+    drawdepth: Mobs
+    noRot: true
+    sprite: Objects/Specific/Mech/mecha.rsi
+    scale: 1.09, 1.09
+    layers:
+    - map: [ "enum.MechVisualLayers.Base" ]
+      state: mauler
+  - type: FootstepModifier
+    footstepSoundCollection:
+      path: /Audio/Mecha/sound_mecha_powerloader_step.ogg
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:ChangeConstructionNodeBehavior
+        node: start
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: Mech
+    baseState: mauler
+    openState: mauler-open
+    brokenState: mauler-broken
+    mechToPilotDamageMultiplier: 0.2
+    airtight: true
+    maxEquipmentAmount: 5
+    equipmentWhitelist:
+      tags:
+      - MaluerMechEquipment
+    pilotWhitelist:
+      components:
+        - HumanoidAppearance
+  - type: MeleeWeapon
+    hidden: true
+    attackRate: 2
+    damage:
+      types:
+        Blunt: 17
+        Structural: 170
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 1.5
+    baseSprintSpeed: 1.8
+  - type: Damageable
+    damageModifierSet: StrongMechAmmor
+  - type: Reflect
+    reflectProb: 0.35
+    spread: 180
+    soundOnReflect: /Audio/Weapons/block_metal1.ogg
+    reflects:
+    - NonEnergy
+
+- type: entity
+  id: MechMaulerBattery
+  parent: MechMauler
+  suffix: Battery
+  components:
+  - type: ContainerFill
+    containers:
+      mech-battery-slot:
+      - PowerCellHigh
+
+- type: entity
+  id: MechMaulerFilled
+  parent: MechMaulerBattery
+  suffix: Battery, Filled
+  components:
+  - type: Mech
+    startingEquipment:
+      - MechMissileRack6
+
+# Clarke
+
+- type: entity
+  id: MechClarke
+  parent: BaseMech
+  name: Clarke Mech
+  description: Built for work, the Constructor excels in heavy lifting, precision tasks, and rugged environments.
+  components:
+  - type: Sprite
+    drawdepth: Mobs
+    noRot: true
+    sprite: Objects/Specific/Mech/mecha.rsi
+    scale: 1.09, 1.09
+    layers:
+    - map: [ "enum.MechVisualLayers.Base" ]
+      state: clarke
+  - type: FootstepModifier
+    footstepSoundCollection:
+      path: /Audio/Effects/Footsteps/borgwalk1.ogg
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 650
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:ChangeConstructionNodeBehavior
+        node: start
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: Mech
+    baseState: clarke
+    openState: clarke-open
+    brokenState: clarke-broken
+    mechToPilotDamageMultiplier: 0.4
+    airtight: true
+    maxEquipmentAmount: 7
+    equipmentWhitelist:
+      tags:
+      - ClarkeMechEquipment
+    pilotWhitelist:
+      components:
+        - HumanoidAppearance
+  - type: MeleeWeapon
+    hidden: true
+    attackRate: 0.4
+    damage:
+      types:
+        Blunt: 15
+        Structural: 45
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 2.2
+    baseSprintSpeed: 3.3
+  - type: Damageable
+    damageModifierSet: StrongMechHeatAmmor
+
+- type: entity
+  id: MechClarkeBattery
+  parent: MechClarke
+  suffix: Battery
+  components:
+  - type: ContainerFill
+    containers:
+      mech-battery-slot:
+      - PowerCellHigh
+
+# Durand
+
+- type: entity
+  id: MechDurand
+  parent: BaseMech
+  name: Durand Mech
+  description: Built for battle, the Durand dominates with crushing punches and a powerful shield, excelling in close quarters and heavy firefights.
+  components:
+  - type: Magboots
+  - type: Sprite
+    drawdepth: Mobs
+    noRot: true
+    sprite: Objects/Specific/Mech/mecha.rsi
+    scale: 1.09, 1.09
+    layers:
+    - map: [ "enum.MechVisualLayers.Base" ]
+      state: durand
+  - type: FootstepModifier
+    footstepSoundCollection:
+      path: /Audio/Mecha/sound_mecha_powerloader_step.ogg
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 800
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:ChangeConstructionNodeBehavior
+        node: start
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+  - type: Mech
+    baseState: durand
+    openState: durand-open
+    brokenState: durand-broken
+    mechToPilotDamageMultiplier: 0.3
+    airtight: true
+    maxEquipmentAmount: 3
+    equipmentWhitelist:
+      tags:
+      - DurandMechEquipment
+    pilotWhitelist:
+      components:
+        - HumanoidAppearance
+  - type: MeleeWeapon
+    hidden: true
+    attackRate: 0.5
+    damage:
+      types:
+        Blunt: 20
+        Structural: 45
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 1.5
+    baseSprintSpeed: 1.8
+  - type: Damageable
+    damageModifierSet: StrongMechAmmor
+
+- type: entity
+  id: MechDurandBattery
+  parent: MechDurand
+  suffix: Battery
+  components:
+  - type: ContainerFill
+    containers:
+      mech-battery-slot:
+      - PowerCellHigh

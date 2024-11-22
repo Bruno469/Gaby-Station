@@ -1,5 +1,6 @@
 using Content.Shared.NPC.Components;
 using Content.Shared.NPC.Prototypes;
+using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Prototypes;
 using System.Collections.Frozen;
 using System.Linq;
@@ -14,6 +15,7 @@ public sealed partial class NpcFactionSystem : EntitySystem
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly SharedTransformSystem _xform = default!;
+    [Dependency] private readonly ISerializationManager _serialization = default!;
 
     /// <summary>
     /// To avoid prototype mutability we store an intermediary data class that gets used instead.
@@ -80,6 +82,31 @@ public sealed partial class NpcFactionSystem : EntitySystem
 
         return ent.Comp.Factions.Contains(faction);
     }
+
+    public void TransferFaction(EntityUid source, EntityUid target)
+    {
+        // Tentando obter o componente de facção
+        TryComp<NpcFactionMemberComponent>(source, out var sourceFaction);
+        if (sourceFaction != null)
+        {
+            // Verificando se o "target" já possui o componente de facção
+            TryComp<NpcFactionMemberComponent>(target, out var targetFaction);
+
+            if (targetFaction != null)
+            {
+                // Copiando os dados de facção para o "target"
+                _serialization.CopyTo(sourceFaction, ref targetFaction, notNullableOverride: true);
+            }
+            else
+            {
+                // Criando um novo componente de facção para o "target"
+                var newFactionComp = new NpcFactionMemberComponent();
+                _serialization.CopyTo(sourceFaction, ref newFactionComp, notNullableOverride: true);
+                AddComp<NpcFactionMemberComponent>(target, newFactionComp);
+            }
+        }
+    }
+
 
     /// <summary>
     /// Returns whether an entity is a member of any listed faction.

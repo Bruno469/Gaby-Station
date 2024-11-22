@@ -1,0 +1,20 @@
+- type: damageModifierSet
+  id: StrongMechAmmor
+  coefficients:
+    Blunt: 0.6
+    Slash: 0.5
+    Piercing: 0.6
+    Shock: 0.4
+    Heat: 0.6
+    Ion: 1.8
+
+- type: damageModifierSet
+  id: StrongMechHeatAmmor
+  coefficients:
+    Blunt: 0.7
+    Slash: 0.5
+    Piercing: 0.7
+    Shock: 0.9
+    Heat: 0.2
+    Ion: 1.8
+

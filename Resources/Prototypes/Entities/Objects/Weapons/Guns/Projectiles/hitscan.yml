@@ -94,6 +94,22 @@
     state: impact_xray
 
 - type: hitscan
+  id: IonRayLaser
+  damage:
+    types:
+      Heat: 10
+      Ion: 18
+  muzzleFlash:
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    state: muzzle_omni
+  travelFlash:
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    state: beam_omni
+  impactFlash:
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    state: impact_omni
+
+- type: hitscan
   id: RedHeavyLaser
   damage:
     types:

@@ -1,0 +1,71 @@
+# clarke
+
+- type: entity
+  id: ClarkeCentralElectronics
+  parent: BaseElectronics
+  name: clarke central control module
+  description: The electrical control center for the clarke mech.
+  components:
+    - type: Item
+      storedRotation: 0
+    - type: Sprite
+      sprite: Objects/Misc/module.rsi
+      state: mainboard
+    - type: Tag
+      tags:
+      - ClarkeCentralControlModule
+    - type: GuideHelp
+      guides:
+      - Robotics
+
+- type: entity
+  id: ClarkePeripheralsElectronics
+  parent: BaseElectronics
+  name: Clarke peripherals control module
+  description: The electrical peripherals control for the Clarke mech.
+  components:
+    - type: Sprite
+      sprite: Objects/Misc/module.rsi
+      state: id_mod
+    - type: Tag
+      tags:
+      - ClarkePeripheralsControlModule
+    - type: GuideHelp
+      guides:
+      - Robotics
+
+# Durand
+
+- type: entity
+  id: DurandCentralElectronics
+  parent: BaseElectronics
+  name: Durand central control module
+  description: The electrical control center for the Durand mech.
+  components:
+    - type: Item
+      storedRotation: 0
+    - type: Sprite
+      sprite: Objects/Misc/module.rsi
+      state: mainboard
+    - type: Tag
+      tags:
+      - DurandCentralControlModule
+    - type: GuideHelp
+      guides:
+      - Robotics
+
+- type: entity
+  id: DurandPeripheralsElectronics
+  parent: BaseElectronics
+  name: Durand peripherals control module
+  description: The electrical peripherals control for the Durand mech.
+  components:
+    - type: Sprite
+      sprite: Objects/Misc/module.rsi
+      state: id_mod
+    - type: Tag
+      tags:
+      - DurandPeripheralsControlModule
+    - type: GuideHelp
+      guides:
+      - Robotics

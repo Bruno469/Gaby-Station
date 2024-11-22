@@ -32,3 +32,17 @@
   components:
     - type: SurplusBundle
       totalPrice: 625
+
+- type: entity
+  id: CrateMaulerBundle
+  suffix: Filled
+  parent: CrateSyndicate
+  name: Mauler bundle
+  description: Contains everything (Power case not inclued)
+  components:
+  - type: StorageFill
+    contents:
+      - id: MechMaulerFilled
+      - id: ToolboxSyndicate
+      - id: DoubleEmergencyOxygenTankFilled
+      - id: DoubleEmergencyNitrogenTankFilled

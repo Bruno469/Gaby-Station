@@ -51,7 +51,12 @@ public sealed class MechAssemblySystem : EntitySystem
             {
                 component.RequiredParts[tag] = true;
                 _container.Insert(args.Used, component.PartsContainer);
+                Console.WriteLine($"Tag {tag} reconhecida e {args.Used} inserido.");
                 break;
+            }
+            else
+            {
+                Console.WriteLine($"Tag {tag} não reconhecida para {args.Used}.");
             }
         }
 

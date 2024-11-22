@@ -1312,6 +1312,23 @@
   - !type:ListingLimitedStockCondition
     stock: 1
 
+# Mechs
+
+- type: listing
+  id: UplinkMauler
+  name: uplink-mech-Mauler-name
+  description: uplink-mech-Mauler-desc
+  icon: { sprite: /Textures/Objects/Specific/Mech/mecha.rsi, state: mauler }
+  productEntity: CrateMaulerBundle
+  cost:
+    Telecrystal: 90
+  categories:
+  - UplinkMechs
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
 
 # Implants
 

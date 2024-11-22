@@ -1,0 +1,277 @@
+- type: entity
+  id: BaseMechGun
+  parent: BaseMechEquipment
+  abstract: true
+  components:
+  - type: Appearance
+  - type: StaticPrice
+    price: 1
+  - type: Battery
+    maxCharge: 200
+    startingCharge: 200
+  - type: Item
+    size: Ginormous
+  - type: MultiHandedItem
+  - type: HeldSpeedModifier
+  - type: ClothingSpeedModifier
+    walkModifier: 0.6
+    sprintModifier: 0.6
+
+# WEAPONS
+
+- type: entity
+  id: MechMissileRack6
+  name: GSM-6 Missile Launcher
+  description: The launch tubes require external reloading.
+  parent: BaseMechGun
+  components:
+  - type: Sprite
+    state: mecha_missilerack_six
+  - type: ProjectileBatteryAmmoProvider
+    proto: BulletWeakRocket
+    fireCost: 220
+  - type: Gun
+    fireRate: 0.6
+    selectedMode: SemiAuto
+    availableModes:
+      - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/rpgfire.ogg
+  - type: Appearance
+  - type: AmmoCounter
+  - type: Battery
+    maxCharge: 220
+    startingCharge: 0
+  - type: Tag
+    tags:
+    - MaluerMechEquipment
+    - DurandMechEquipment
+
+- type: entity
+  id: MechPlasmaCutter
+  name: Mech Plasma Cutter
+  description: A plasma tool for cutting and powerful attacks.
+  parent: BaseMechGun
+  components:
+  - type: Sprite
+    state: mecha_plasmacutter
+  - type: ProjectileBatteryAmmoProvider
+    proto: BulletPlasmaCutter
+    fireCost: 80
+  - type: Gun
+    fireRate: 1
+    selectedMode: SemiAuto
+    availableModes:
+      - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/plasma_cutter.ogg
+  - type: Appearance
+  - type: AmmoCounter
+  - type: Battery
+    maxCharge: 80
+    startingCharge: 0
+  - type: Tag
+    tags:
+    - ClarkeMechEquipment
+
+
+- type: entity
+  id: Mechuac2
+  name: Mech UAC2
+  description: Fires a three shot burst of 20 damage bullets.
+  parent: BaseMechGun
+  components:
+  - type: Sprite
+    state: mecha_uac2
+  - type: BasicEntityAmmoProvider
+    proto: BulletHeavyRifle
+    Capacity: 1200
+    Count: 300
+  - type: Gun
+    fireRate: 0.4
+    NextFire: 1
+    selectedMode: Burst
+    availableModes:
+      - Burst
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/batrifle.ogg
+  - type: Appearance
+  - type: AmmoCounter
+  - type: Tag
+    tags:
+    - MaluerMechEquipment
+    - DurandMechEquipment
+
+- type: entity
+  id: MechCHPSLaser
+  name: CH-PS "Immolator" Laser
+  description: Fires a Laser bolt, identical to laser rifles.
+  parent: BaseMechGun
+  components:
+  - type: Sprite
+    state: mecha_laser
+  - type: ProjectileBatteryAmmoProvider
+    proto: RedLaser
+    fireCost: 30
+  - type: Gun
+    fireRate: 1.8
+    selectedMode: SemiAuto
+    availableModes:
+      - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/laser.ogg
+  - type: Appearance
+  - type: AmmoCounter
+  - type: Battery
+    maxCharge: 30
+    startingCharge: 0
+  - type: Tag
+    tags:
+    - DurandMechEquipment
+
+- type: entity
+  id: MechCHLCLaser
+  name: CH-LC "Solaris" Laser Cannon
+  description: Fires a Heavy Laser bolt, identical to the laser cannon.
+  parent: BaseMechGun
+  components:
+  - type: Sprite
+    state: mecha_laser
+  - type: ProjectileBatteryAmmoProvider
+    proto: RedHeavyLaser
+    fireCost: 60
+  - type: Gun
+    fireRate: 0.8
+    selectedMode: SemiAuto
+    availableModes:
+      - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg
+  - type: Appearance
+  - type: AmmoCounter
+  - type: Battery
+    maxCharge: 60
+    startingCharge: 0
+  - type: Tag
+    tags:
+    - DurandMechEquipment
+
+- type: entity
+  id: MechmkIVIonLaser
+  name: mkIV Ion Heavy Cannon
+  description: Fires a Ion bolt, identical to ion rifles. Don't hit yourself!
+  parent: BaseMechGun
+  components:
+  - type: Sprite
+    state: mecha_ion
+  - type: ProjectileBatteryAmmoProvider
+    proto: IonRayLaser
+    fireCost: 120
+  - type: Gun
+    fireRate: 0.3
+    selectedMode: SemiAuto
+    availableModes:
+      - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg
+  - type: Appearance
+  - type: AmmoCounter
+  - type: Battery
+    maxCharge: 120
+    startingCharge: 0
+  - type: Tag
+    tags:
+    - DurandMechEquipment
+
+# TODO: MechRCD and MechExting
+
+# - type: entity
+#   id: MechRCD
+#   name: Mech RCD
+#   description: A RCD tool for build.
+#   parent: BaseMechEquipment
+#   components:
+#   - type: RCD
+#     availablePrototypes:
+#     - WallSolid
+#     - FloorSteel
+#     - Plating
+#     - Catwalk
+#     - Grille
+#     - Window
+#     - WindowDirectional
+#     - WindowReinforcedDirectional
+#     - ReinforcedWindow
+#     - Airlock
+#     - AirlockGlass
+#     - Firelock
+#     - TubeLight
+#     - BulbLight
+#     - LVCable
+#     - MVCable
+#     - HVCable
+#     - CableTerminal
+#     - Deconstruct
+#   - type: LimitedCharges
+#     maxCharges: 30
+#     charges: 30
+#   - type: UseDelay
+#   - type: PhysicalComposition
+#     materialComposition:
+#       Steel: 600
+#       Plastic: 100
+#   - type: UserInterface
+#     interfaces:
+#       enum.RcdUiKey.Key:
+#         type: RCDMenuBoundUserInterface
+#   - type: ActivatableUI
+#     inHandsOnly: true
+#     key: enum.RcdUiKey.Key
+#   - type: Sprite
+#     state: mecha_rcd
+#   - type: Appearance
+#   - type: Battery
+#     maxCharge: 500
+#     startingCharge: 0
+#   - type: Tag
+#     tags:
+#     - ClarkeMechEquipment
+
+# - type: entity
+#   id: MechExting
+#   name: Mech exting
+#   description: A mech extinguisher tool.
+#   parent: BaseMechEquipment
+#   components:
+#   - type: Spray
+#     transferAmount: 25
+#     SprayDistance: 8
+#     pushbackAmount: 70
+#     spraySound:
+#       path: /Audio/Effects/extinguish.ogg
+#     sprayedPrototype: ExtinguisherSpray
+#     vaporAmount: 5
+#     vaporSpread: 75
+#     sprayVelocity: 3.0
+#   - type: RefillableSolution
+#     solution: spray
+#   - type: DrainableSolution
+#     solution: spray
+#   - type: SolutionTransfer
+#     maxTransferAmount: 100
+#     transferAmount: 100
+#   - type: SolutionContainerManager
+#     solutions:
+#       spray:
+#         maxVol: 1000
+#   - type: Sprite
+#     state: mecha_exting
+#   - type: Appearance
+#   - type: MechEquipment
+#     InstallDuration: 4
+#   - type: Battery
+#     maxCharge: 500
+#     startingCharge: 0
+#   - type: Tag
+#     tags:
+#     - ClarkeMechEquipment

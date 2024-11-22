@@ -35,21 +35,17 @@
     joinSystem: true
   - type: DoAfter
   - type: Repairable
-    fuelCost: 25
-    doAfterDelay: 10
+    fuelCost: 30
+    doAfterDelay: 5
+    damage:
+      types:
+        Blunt: -15
+        Slash: -15
+        Piercing: -15
   - type: UserInterface
     interfaces:
       enum.MechUiKey.Key:
         type: MechBoundUserInterface
-  - type: MeleeWeapon
-    hidden: true
-    attackRate: 0.75
-    damage:
-      types:
-        Blunt: 25 #thwack
-        Structural: 20
-    soundHit:
-      collection: MetalThud
   - type: Puller
     needsHands: false
   - type: InputMover
@@ -62,10 +58,10 @@
     - DoorBumpOpener
     - FootstepSound
   - type: Pullable
-  - type: Physics
-    bodyType: KinematicController
   - type: Clickable
   - type: WiresPanel
+  - type: Physics
+    bodyType: Dynamic
   - type: Fixtures
     fixtures:
       fix1:
@@ -77,34 +73,35 @@
         - MobMask
         layer:
         - MobLayer
+  - type: HealthExaminable
+    examinableTypes:
+      - Blunt
+      - Slash
+      - Piercing
+      - Heat
+      - Shock
+    locPrefix: mech
   - type: Appearance
   - type: ContainerContainer
     containers:
       mech-pilot-slot: !type:ContainerSlot
       mech-equipment-container: !type:Container
       mech-battery-slot: !type:ContainerSlot
-  - type: Damageable
-    damageContainer: Inorganic
-    damageModifierSet: Metallic
   - type: FootstepModifier
     footstepSoundCollection:
       path: /Audio/Mecha/mechmove03.ogg
   - type: GuideHelp
     guides:
     - Robotics
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 400
-      behaviors:
-      - !type:PlaySoundBehavior
-        sound:
-          collection: MetalBreak
-      - !type:ChangeConstructionNodeBehavior
-        node: start
-      - !type:DoActsBehavior
-        acts: ["Destruction"]
+  - type: Prying
+  - type: StatusIcon
+    bounds: "-0.6,-0.6, 0.6, 0.6"
+  - type: PointLight
+    enabled: false
+    mask: /Textures/Effects/LightMasks/cone.png
+    autoRot: true
+    radius: 4
+    netsync: false
 
 - type: entity
   id: MechRipley

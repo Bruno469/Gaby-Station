@@ -12,15 +12,16 @@ using Content.Shared.Interaction.Events;
 using Content.Shared.Mech.Components;
 using Content.Shared.Mech.Equipment.Components;
 using Content.Shared.Movement.Components;
+using Content.Shared.Mobs;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Weapons.Melee;
+using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Whitelist;
 using Robust.Shared.Containers;
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
-
 namespace Content.Shared.Mech.EntitySystems;
 
 /// <summary>
@@ -47,7 +48,6 @@ public abstract class SharedMechSystem : EntitySystem
         SubscribeLocalEvent<MechComponent, MechEjectPilotEvent>(OnEjectPilotEvent);
         SubscribeLocalEvent<MechComponent, UserActivateInWorldEvent>(RelayInteractionEvent);
         SubscribeLocalEvent<MechComponent, ComponentStartup>(OnStartup);
-        SubscribeLocalEvent<MechComponent, DestructionEventArgs>(OnDestruction);
         SubscribeLocalEvent<MechComponent, GetAdditionalAccessEvent>(OnGetAdditionalAccess);
         SubscribeLocalEvent<MechComponent, DragDropTargetEvent>(OnDragDrop);
         SubscribeLocalEvent<MechComponent, CanDropTargetEvent>(OnCanDragDrop);
@@ -72,7 +72,6 @@ public abstract class SharedMechSystem : EntitySystem
         args.Handled = true;
         TryEject(uid, component);
     }
-
     private void RelayInteractionEvent(EntityUid uid, MechComponent component, UserActivateInWorldEvent args)
     {
         var pilot = component.PilotSlot.ContainedEntity;
@@ -95,11 +94,6 @@ public abstract class SharedMechSystem : EntitySystem
         component.EquipmentContainer = _container.EnsureContainer<Container>(uid, component.EquipmentContainerId);
         component.BatterySlot = _container.EnsureContainer<ContainerSlot>(uid, component.BatterySlotId);
         UpdateAppearance(uid, component);
-    }
-
-    private void OnDestruction(EntityUid uid, MechComponent component, DestructionEventArgs args)
-    {
-        BreakMech(uid, component);
     }
 
     private void OnGetAdditionalAccess(EntityUid uid, MechComponent component, ref GetAdditionalAccessEvent args)
@@ -426,7 +420,6 @@ public abstract class SharedMechSystem : EntitySystem
         _appearance.SetData(uid, MechVisuals.Open, IsEmpty(component), appearance);
         _appearance.SetData(uid, MechVisuals.Broken, component.Broken, appearance);
     }
-
     private void OnDragDrop(EntityUid uid, MechComponent component, ref DragDropTargetEvent args)
     {
         if (args.Handled)
@@ -448,7 +441,6 @@ public abstract class SharedMechSystem : EntitySystem
 
         args.CanDrop |= !component.Broken && CanInsert(uid, args.Dragged, component);
     }
-
 }
 
 /// <summary>

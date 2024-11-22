@@ -41,8 +41,12 @@ public sealed class SpraySystem : EntitySystem
 
     private void OnActivateInWorld(Entity<SprayComponent> entity, ref UserActivateInWorldEvent args)
     {
+        Log.Debug("Spray++");
         if (args.Handled)
+        {
+            Log.Debug("Sray fora da mão");
             return;
+        }
 
         args.Handled = true;
 
@@ -54,7 +58,10 @@ public sealed class SpraySystem : EntitySystem
     private void OnAfterInteract(Entity<SprayComponent> entity, ref AfterInteractEvent args)
     {
         if (args.Handled)
+        {
+            Log.Debug("Fora da mão");
             return;
+        }
 
         args.Handled = true;
 
@@ -66,7 +73,10 @@ public sealed class SpraySystem : EntitySystem
     public void Spray(Entity<SprayComponent> entity, EntityUid user, MapCoordinates mapcoord)
     {
         if (!_solutionContainer.TryGetSolution(entity.Owner, SprayComponent.SolutionName, out var soln, out var solution))
+        {
+            Log.Debug("Falha ao obter solução de disparo");
             return;
+        }
 
         var ev = new SprayAttemptEvent(user);
         RaiseLocalEvent(entity, ref ev);
